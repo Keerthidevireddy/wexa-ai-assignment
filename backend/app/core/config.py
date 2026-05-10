@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     EMAILS_FROM: str = "noreply@analyticsplatform.com"
 
     # CORS
-    CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:3001"]
+    CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:3001", "https://*.vercel.app"]
     FRONTEND_URL: str = "http://localhost:3000"
 
     # Google OAuth2 (optional)
