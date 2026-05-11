@@ -38,13 +38,12 @@ limiter = Limiter(key_func=get_remote_address, default_limits=["200/minute"])
 async def lifespan(app: FastAPI):
     log.info("app_startup", app=settings.APP_NAME, debug=settings.DEBUG)
 
-    # Auto-create tables for local development (SQLite)
-    if "sqlite" in settings.DATABASE_URL:
-        from app.db.session import engine, Base
-        from app.models import __all__  # noqa: F401 — ensure all models are imported
-        async with engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)
-        log.info("database_tables_created", engine="sqlite")
+    # Auto-create tables on startup
+    from app.db.session import engine, Base
+    from app.models import __all__  # noqa: F401 — ensure all models are imported
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    log.info("database_tables_created")
 
     yield
     log.info("app_shutdown", app=settings.APP_NAME)
