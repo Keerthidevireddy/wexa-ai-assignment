@@ -23,12 +23,19 @@ class JSONType(TypeDecorator):
         return value
 
 
-# Determine if we're using SQLite (for testing)
-is_sqlite = settings.DATABASE_URL.startswith("sqlite")
+# Auto-convert Railway's postgres:// URL to async driver format
+db_url = settings.DATABASE_URL
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql+asyncpg://", 1)
+elif db_url.startswith("postgresql://"):
+    db_url = db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
+# Determine if we're using SQLite (for local dev/testing)
+is_sqlite = db_url.startswith("sqlite")
 pool_pre_ping = not is_sqlite  # SQLite doesn't support pool_pre_ping
 
 engine = create_async_engine(
-    settings.DATABASE_URL,
+    db_url,
     echo=settings.DEBUG,
     pool_pre_ping=pool_pre_ping,
 )
