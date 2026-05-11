@@ -11,6 +11,11 @@
 [![Tests](https://img.shields.io/badge/Tests-70%20Passed-10b981?logo=pytest&logoColor=white)](#testing)
 [![License](https://img.shields.io/badge/License-MIT-6366f1)](#license)
 
+### 🔗 Live Demo
+
+| 🌐 [Frontend (Vercel)](https://wexa-ai-assignment-six.vercel.app) | 🔌 [API Docs (Swagger)](https://wexa-ai-assignment-production.up.railway.app/docs) | 💚 [Health Check](https://wexa-ai-assignment-production.up.railway.app/health) |
+|---|---|---|
+
 </div>
 
 ---
